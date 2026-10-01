@@ -10,7 +10,8 @@ public class Main {
 
     public static void ejecutar(InputStream entrada, PrintStream salida) {
         Scanner scanner = new Scanner(entrada);
-        Caso caso = new Caso("Caso inicial", "SIN-CODIGO", "Sin detective");
+        salida.println("Iniciando un nuevo caso.");
+        Caso caso = solicitarCaso(scanner, salida);
         boolean continuar = true;
 
         while (continuar && scanner.hasNextLine()) {
@@ -34,13 +35,7 @@ public class Main {
     private static Caso ejecutarOpcion(int opcion, Caso caso, Scanner scanner, PrintStream salida) {
         switch (opcion) {
             case 1:
-                salida.println("Nombre del caso: ");
-                String nombre = leerTexto(scanner);
-                salida.println("Codigo del caso: ");
-                String codigo = leerTexto(scanner);
-                salida.println("Detective responsable: ");
-                String detective = leerTexto(scanner);
-                Caso nuevoCaso = new Caso(nombre, codigo, detective);
+                Caso nuevoCaso = solicitarCaso(scanner, salida);
                 salida.println("Nuevo caso creado.");
                 return nuevoCaso;
             case 2:
@@ -141,6 +136,16 @@ public class Main {
             return "";
         }
         return scanner.nextLine().trim();
+    }
+
+    private static Caso solicitarCaso(Scanner scanner, PrintStream salida) {
+        salida.println("Nombre del caso: ");
+        String nombre = leerTexto(scanner);
+        salida.println("Codigo del caso: ");
+        String codigo = leerTexto(scanner);
+        salida.println("Detective responsable: ");
+        String detective = leerTexto(scanner);
+        return new Caso(nombre, codigo, detective);
     }
 
     private static void mostrarMenu(PrintStream salida, Caso caso) {
