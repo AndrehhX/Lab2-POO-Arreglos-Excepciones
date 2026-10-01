@@ -11,8 +11,11 @@ Sistema de consola desarrollado para el laboratorio de Programación Orientada a
 
 Desde la carpeta del proyecto:
 
-```text
-javac -d build src/*.java
+En PowerShell de Windows:
+
+```powershell
+New-Item -ItemType Directory -Path build -Force | Out-Null
+javac -d build (Get-ChildItem src -Filter *.java | ForEach-Object { $_.FullName })
 ```
 
 ## Ejecutar
@@ -25,8 +28,8 @@ El menú incluye las 13 operaciones de la guía: crear caso, registrar y adminis
 
 ## Ejecutar las pruebas
 
-```text
-javac -d build src/*.java tests/*.java
+```powershell
+javac -d build (Get-ChildItem src -Filter *.java | ForEach-Object { $_.FullName }) (Get-ChildItem tests -Filter *.java | ForEach-Object { $_.FullName })
 java -cp build CasoTest
 java -cp build MainTest
 ```
